@@ -80,15 +80,15 @@ func (manager *Manager) Close() {
 }
 
 func (manager *Manager) startup() error {
-	for _, exchangeOptions := range manager.options.ExchangeOptions {
-		if err := manager.DeclareExchange(exchangeOptions); err != nil {
-			return fmt.Errorf("failed to declare exchange: %w", err)
-		}
-	}
-
 	for _, queueOptions := range manager.options.QueueOptions {
 		if err := manager.DeclareQueue(queueOptions); err != nil {
 			return fmt.Errorf("failed to declare queue: %w", err)
+		}
+	}
+
+	for _, exchangeOptions := range manager.options.ExchangeOptions {
+		if err := manager.DeclareExchange(exchangeOptions); err != nil {
+			return fmt.Errorf("failed to declare exchange: %w", err)
 		}
 	}
 
